@@ -1,0 +1,295 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   Paper and ink.
+
+   The page is warm paper. Three sections — the hero, the career timeline and
+   the contact footer — sit on deep ink bands, because that is where the copper
+   trace lives and it needs a dark ground to read against. That alternation is
+   the page's rhythm, not decoration.
+
+   Everything below is semantic: components never name a raw colour, they name
+   a role (`canvas`, `ink`, `muted`, `accent`). Swapping the theme or the band
+   just re-points those roles.
+   ========================================================================== */
+
+/* ---- light (default): warm paper ---------------------------------------- */
+:root {
+  /* Theme-independent. Declared here as well as in @theme because `@theme
+     inline` does not emit custom properties, and both CSS and inline styles
+     reference this by name. */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --canvas: #f7f3ed;
+  --surface: #fffdfa;
+  --surface-2: #efe8de;
+
+  --text: #17191c;
+  --text-dim: #34383d;
+  --text-muted: #4e545a;
+  --text-faint: #5e646b;
+
+  --line: #ded5c9;
+  --line-strong: #c0b5a5;
+
+  /* #a85f26 measured 4.39:1 for 11px eyebrows on paper — just under AA. */
+  --accent: #9e581f;
+  --accent-strong: #83471a;
+  --display: #14161a;
+  --on-accent: #fff8f0;
+
+  --signal: #1c7a51;
+  /* Kept close to surface-2: on paper the dots must sit *behind* body text,
+     never darker than it. */
+  --dot: #ddd3c6;
+
+  --grain-opacity: 0.03;
+  --grain-blend: multiply;
+  --glow-opacity: 0.1;
+}
+
+/* ---- dark: lifted ink, not a void --------------------------------------- */
+:root[data-theme='dark'] {
+  --canvas: #101317;
+  --surface: #171b20;
+  --surface-2: #1d232a;
+
+  --text: #ece6df;
+  --text-dim: #b9b3ac;
+  --text-muted: #99a0a7;
+  --text-faint: #7e858c;
+
+  --line: #262e35;
+  --line-strong: #39434c;
+
+  --accent: #d9925a;
+  --accent-strong: #e7a86b;
+  --display: #f5dcc0;
+  --on-accent: #14100c;
+
+  --signal: #6fcf9f;
+  --dot: #4e5a65;
+
+  --grain-opacity: 0.035;
+  --grain-blend: overlay;
+  --glow-opacity: 0.16;
+}
+
+/*
+ * A band is always dark, in either theme — that is the whole point of it.
+ * In dark mode it sits a step above the canvas so the rhythm still reads.
+ */
+.band {
+  --canvas: #16191d;
+  --surface: #1e2228;
+  --surface-2: #252b32;
+
+  --text: #ece6df;
+  --text-dim: #b9b3ac;
+  --text-muted: #99a0a7;
+  --text-faint: #7e858c;
+
+  --line: #2b333a;
+  --line-strong: #3d4750;
+
+  --accent: #d9925a;
+  --accent-strong: #e7a86b;
+  --display: #f5dcc0;
+  --on-accent: #14100c;
+
+  --signal: #6fcf9f;
+  --dot: #56626d;
+
+  --grain-opacity: 0.035;
+  --grain-blend: overlay;
+  --glow-opacity: 0.18;
+
+  background-color: var(--canvas);
+  color: var(--text);
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface2: var(--surface-2);
+
+  --color-ink: var(--text);
+  --color-dim: var(--text-dim);
+  --color-muted: var(--text-muted);
+  --color-faint: var(--text-faint);
+
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-display: var(--display);
+  --color-on-accent: var(--on-accent);
+  --color-signal: var(--signal);
+
+  --font-display: var(--font-newsreader), ui-serif, Georgia, serif;
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SF Mono", monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    color-scheme: light;
+  }
+  html[data-theme='dark'] {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--canvas);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-feature-settings: "kern", "liga";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    transition: background-color 300ms var(--ease-out-expo), color 300ms var(--ease-out-expo);
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: var(--on-accent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--surface-2);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--line-strong);
+    border-radius: 999px;
+    border: 2px solid var(--surface-2);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+  }
+}
+
+@layer components {
+  /* Mono eyebrow for section labels and metadata keys. Sized up from 11px —
+     small caps tracking needs the extra to stay legible. */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+
+  .display {
+    font-family: var(--font-display);
+    font-weight: 300;
+    line-height: 0.98;
+    letter-spacing: -0.022em;
+    color: var(--display);
+  }
+
+  .prose-lead {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(1.15rem, 1.9vw, 1.5rem);
+    line-height: 1.55;
+    color: var(--text-dim);
+  }
+
+  .gutter {
+    width: 100%;
+    max-width: 82rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .gutter {
+      padding-inline: 2.5rem;
+    }
+  }
+  @media (min-width: 1280px) {
+    .gutter {
+      padding-inline: 4rem;
+    }
+  }
+
+  /* Signature: a copper signal line drawn progressively on scroll. Path length
+     is measured at runtime and written to --trace-len. */
+  .trace-path {
+    stroke-dasharray: var(--trace-len);
+    stroke-dashoffset: calc(var(--trace-len) * (1 - var(--trace-progress, 0)));
+    transition: stroke-dashoffset 120ms linear;
+  }
+
+  /* The head that rides the tip of the trace — breathes so the wire reads
+     as live rather than merely drawn. */
+  .trace-head {
+    animation: trace-breathe 2.4s ease-in-out infinite;
+  }
+  @keyframes trace-breathe {
+    0%,
+    100% {
+      opacity: 0.75;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  .grain {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: var(--grain-opacity);
+    mix-blend-mode: var(--grain-blend);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .trace-path {
+    stroke-dashoffset: 0 !important;
+  }
+}
+
+@media print {
+  body {
+    background: #fff;
+    color: #000;
+  }
+  .no-print {
+    display: none !important;
+  }
+}

@@ -1,11 +1,16 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { currentRole, roles } from '@/content/profile';
+import { currentRole, featured, roles } from '@/content/profile';
 import { duration, formatMonth } from '@/lib/format';
 import Reveal from './Reveal';
 import Trace, { type TraceNode } from './Trace';
 import { MinusIcon, PlusIcon } from './icons';
+
+/** roleId::engagement name -> already told in full under "Selected systems". */
+const FEATURED_ELSEWHERE = new Set(
+  featured.filter((f) => f.source === 'role').map((f) => `${f.roleId}::${f.engagement}`),
+);
 
 export default function Experience() {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -70,7 +75,11 @@ export default function Experience() {
             />
             <Reveal>
               <article className="grid gap-6 py-10 md:grid-cols-12 md:gap-10 md:py-14">
-                {/* period rail */}
+                {/* period rail — real dates. Safe to show here because
+                    independent work carries no date anywhere on the site
+                    (see Systems.tsx): there's nothing to cross-reference
+                    this timeline against, so an accurate employment record
+                    here is a credibility plus, not a risk. */}
                 <div className="md:col-span-3">
                   <p className="tabular font-mono text-[0.78rem] uppercase tracking-[0.1em] text-accent">
                     {role.periodLabel ?? `${formatMonth(role.start)} — ${formatMonth(role.end)}`}
@@ -100,7 +109,10 @@ export default function Experience() {
                   <p className="prose-lead mt-5 max-w-[62ch] text-[1.05rem]">{role.premise}</p>
 
                   {/* Bordered cards rather than a gap-px grid: a role with one
-                      engagement would otherwise paint an empty second cell. */}
+                      engagement would otherwise paint an empty second cell.
+                      Name + stack only — the story itself lives in one place:
+                      here (via "Show highlights") or, for the handful also
+                      chosen as case studies, in "Selected systems" above. */}
                   <ul
                     className={`mt-8 grid gap-3 ${
                       role.engagements.length > 1 ? 'sm:grid-cols-2' : ''
@@ -109,9 +121,6 @@ export default function Experience() {
                     {role.engagements.map((e) => (
                       <li key={e.name} className="border border-line bg-surface p-5">
                         <h4 className="text-[0.975rem] font-medium text-ink">{e.name}</h4>
-                        <p className="mt-2 text-[0.9rem] leading-relaxed text-muted">
-                          {e.summary}
-                        </p>
                         <ul className="mt-3.5 flex flex-wrap gap-1.5">
                           {e.stack.slice(0, 5).map((t) => (
                             <li
@@ -127,6 +136,14 @@ export default function Experience() {
                             </li>
                           )}
                         </ul>
+                        {FEATURED_ELSEWHERE.has(`${role.id}::${e.name}`) && (
+                          <a
+                            href="#work"
+                            className="mt-3.5 inline-flex cursor-pointer items-center gap-1 font-mono text-[0.72rem] text-accent transition-colors hover:text-accent-strong"
+                          >
+                            Full write-up in Selected systems ↑
+                          </a>
+                        )}
                       </li>
                     ))}
                   </ul>

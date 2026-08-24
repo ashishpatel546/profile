@@ -1,11 +1,12 @@
 /**
  * Single source of truth for every word and number on the site.
  *
- * REVIEW BEFORE PUBLISHING — entries marked `needsReview: true` were written
- * from context rather than from the résumé PDF. Confirm the dates, titles and
- * scope, then delete the flag. Nothing else on the site invents facts: the
- * headline stats are computed from the arrays below, so they stay true as you
- * edit them.
+ * No entry currently needs review. If you add a role before its dates are
+ * confirmed, mark it `needsReview: true` — it was written from context
+ * rather than the résumé PDF. Confirm the dates, title and scope, then
+ * delete the flag. Nothing else on the site invents facts: the headline
+ * stats are computed from the arrays below, so they stay true as you edit
+ * them.
  */
 
 import { asset } from '@/lib/asset';
@@ -99,7 +100,7 @@ export const offerings = [
     title: 'Agentic AI & MCP integration',
     outcome: 'You want AI in the product without it becoming a liability.',
     body: 'Agents, MCP tool surfaces and chatbots grounded in your own data — with prompt constraints, I/O validation, access control, rate limiting and audit logging designed in, so it passes review instead of failing it.',
-    proof: 'An agent running NOC monitoring 24×7×365 on MCP tool surfaces; AI chatbots inside an AI-native school ERP; governed OpenAI integration inside a WPP enterprise platform.',
+    proof: 'An agent running NOC monitoring 24×7×365 on MCP tool surfaces; AI chatbots inside an AI-native school ERP; a multilingual MCP-grounded query agent inside a WPP enterprise platform.',
   },
   {
     title: 'Fractional architect',
@@ -151,77 +152,19 @@ export const roles: Role[] = [
       {
         name: 'Enterprise Multi-Application Access Management Platform',
         summary:
-          'A single portal through which employees reach every internal application they are entitled to — replacing a legacy third-party dependency without changing a thing users can see.',
+          'A single portal through which employees reach every internal application they are entitled to, with a multilingual agentic AI assistant — grounded via MCP servers — that answers questions about the platform in natural language. Replaces a legacy third-party dependency without changing a thing users can see.',
         highlights: [
           'Led design and development of the backend from an empty repository, using NestJS and TypeScript under a clean-architecture boundary.',
           'Architected a new system version that decouples core business logic from the legacy third-party service while preserving existing behaviour, so migration lands with zero functional regression.',
           'Implemented Azure Active Directory OAuth 2.0 authentication with secure token validation and enterprise-compliant authorization flows.',
           'Designed an RBAC framework mapping Azure AD roles onto internal users, permissions and multiple applications inside one unified portal.',
           'Modelled and optimised the PostgreSQL schema for users, roles, applications, permissions and audit data.',
-          'Integrated OpenAI APIs behind a loosely coupled boundary, so a different model or provider can be swapped in without touching callers.',
-          'Wired enterprise AI governance into the integration itself: prompt constraints, input/output validation, access control, rate limiting and audit logging.',
+          'Architected and built a multilingual agentic AI assistant that resolves user questions about the platform in natural language, grounded in live system data rather than static docs.',
+          "Designed and built MCP (Model Context Protocol) servers exposing the platform's data and actions as a governed tool surface, giving the agent scoped, auditable access to the system instead of open-ended API calls.",
+          'Wired enterprise AI governance into the agent from the first commit: prompt constraints, input/output validation, access control, rate limiting and audit logging.',
+          'Leading the platform’s infrastructure migration from AWS to GCP.',
         ],
-        stack: ['NestJS', 'TypeScript', 'PostgreSQL', 'Azure AD OAuth 2.0', 'RBAC', 'OpenAI', 'REST'],
-      },
-    ],
-  },
-  {
-    id: 'tirex',
-    company: 'Tirex Chargers',
-    title: 'Solution Architect — Charging Infrastructure',
-    location: 'India',
-    // TODO(ashish): confirm the real start/end. Until then `periodLabel` below
-    // suppresses the date range so nothing invented is published.
-    start: '2026-01',
-    end: null,
-    periodLabel: 'Ongoing engagement',
-    premise:
-      'Replacing a human night shift with an agent: full agentic AI architecture that watches charger behaviour around the clock and raises maintenance work before anything fails.',
-    needsReview: true,
-    engagements: [
-      {
-        name: 'Agentic AI NOC — Autonomous Charger Monitoring',
-        summary:
-          'An agent that runs network operations 24/7/365, reading charger behaviour continuously and opening predictive-maintenance tickets before a fault becomes an outage.',
-        highlights: [
-          'Designed the full agentic AI architecture for autonomous monitoring of charger behaviour across the network.',
-          'Built agents that perform NOC monitoring 24×7×365, replacing a rota that previously needed human eyes on a dashboard overnight.',
-          'Built MCP (Model Context Protocol) servers exposing charger telemetry and operational actions as a governed tool surface, so agents act on live data through defined tools rather than ad-hoc integrations.',
-          'Modelled charger behaviour so the agent detects degradation patterns rather than waiting for a hard failure signal.',
-          'Automated predictive-maintenance ticket generation, so field teams are dispatched on evidence instead of on customer complaints.',
-          'Defined the service boundaries between charge point communication, behavioural analysis and ticketing so each can evolve independently.',
-        ],
-        stack: ['Agentic AI', 'MCP', 'LLM orchestration', 'OCPP', 'NestJS', 'TypeScript', 'WebSockets', 'PostgreSQL'],
-      },
-    ],
-  },
-  {
-    id: 'appmesoft',
-    company: 'AppMeSoft',
-    legalName: 'AppMeSoft Private Limited',
-    title: 'Solution Architect — Product Engineering',
-    location: 'India',
-    // TODO(ashish): confirm the real start/end. `periodLabel` suppresses the
-    // date range until then so nothing invented is published.
-    start: '2025-06',
-    end: null,
-    periodLabel: 'Ongoing engagement',
-    premise:
-      'Colegios — a school ERP designed AI-native from the first schema, rather than a legacy admin system with a chatbot bolted onto the side.',
-    needsReview: true,
-    engagements: [
-      {
-        name: 'Colegios — AI-Native School ERP',
-        summary:
-          'The operational platform a school actually runs on — admissions, academics, staff, parents and finance — with AI and agent tooling designed into the workflow instead of parked in a side panel.',
-        link: { label: 'colegios.in', href: 'https://www.colegios.in' },
-        highlights: [
-          'Architected a modern school ERP covering the full operational surface of an institution, built AI-first rather than retrofitted.',
-          'Shipped AI chatbots for staff, parents and students, grounded in the institution’s own data with role-aware access.',
-          'Designed the multi-tenant data model so each school is isolated while the platform stays a single deployable product.',
-          'Applied the same AI governance posture as the enterprise work: scoped tools, validated input and output, access control and audit trails.',
-        ],
-        stack: ['NestJS', 'TypeScript', 'LLM orchestration', 'AI agents', 'PostgreSQL', 'Next.js', 'Multi-tenancy'],
+        stack: ['NestJS', 'TypeScript', 'Agentic AI', 'MCP', 'Azure AD OAuth 2.0', 'RBAC', 'PostgreSQL', 'OpenAI', 'GCP', 'AWS', 'REST'],
       },
     ],
   },
@@ -375,6 +318,54 @@ export const roles: Role[] = [
   },
 ];
 
+/**
+ * Fractional/consulting builds, deliberately kept separate from `roles`.
+ *
+ * These run concurrently with a full-time role, so they never carry a start
+ * date, an end date or "engagement" language, on this object or anywhere it's
+ * rendered — anything date-shaped next to an active employer reads as an
+ * undisclosed second job and is exactly the kind of thing that gets a résumé
+ * screened out. Because these stay undated everywhere, `roles` is free to
+ * show real employment dates without recreating that risk: there's nothing
+ * left on the site to cross-reference them against. The work is real and
+ * worth showing; it just belongs in "Selected systems" as case studies
+ * tagged "Independent build", not in the "Experience" timeline as employment
+ * history. See `resolveFeatured` below.
+ */
+export type IndependentProject = Engagement & { client: string };
+
+export const independentProjects: IndependentProject[] = [
+  {
+    client: 'Tirex Chargers',
+    name: 'Agentic AI NOC — Autonomous Charger Monitoring',
+    summary:
+      'An agent that runs network operations 24/7/365, reading charger behaviour continuously and opening predictive-maintenance tickets before a fault becomes an outage.',
+    highlights: [
+      'Designed the full agentic AI architecture for autonomous monitoring of charger behaviour across the network.',
+      'Built agents that perform NOC monitoring 24×7×365, replacing a rota that previously needed human eyes on a dashboard overnight.',
+      'Built MCP (Model Context Protocol) servers exposing charger telemetry and operational actions as a governed tool surface, so agents act on live data through defined tools rather than ad-hoc integrations.',
+      'Modelled charger behaviour so the agent detects degradation patterns rather than waiting for a hard failure signal.',
+      'Automated predictive-maintenance ticket generation, so field teams are dispatched on evidence instead of on customer complaints.',
+      'Defined the service boundaries between charge point communication, behavioural analysis and ticketing so each can evolve independently.',
+    ],
+    stack: ['Agentic AI', 'MCP', 'LLM orchestration', 'OCPP', 'NestJS', 'TypeScript', 'WebSockets', 'PostgreSQL'],
+  },
+  {
+    client: 'AppMeSoft',
+    name: 'Colegios — AI-Native School ERP',
+    summary:
+      'The operational platform a school actually runs on — admissions, academics, staff, parents and finance — with AI and agent tooling designed into the workflow instead of parked in a side panel.',
+    link: { label: 'colegios.in', href: 'https://www.colegios.in' },
+    highlights: [
+      'Architected a modern school ERP covering the full operational surface of an institution, built AI-first rather than retrofitted.',
+      'Shipped AI chatbots for staff, parents and students, grounded in the institution’s own data with role-aware access.',
+      'Designed the multi-tenant data model so each school is isolated while the platform stays a single deployable product.',
+      'Applied the same AI governance posture as the enterprise work: scoped tools, validated input and output, access control and audit trails.',
+    ],
+    stack: ['NestJS', 'TypeScript', 'LLM orchestration', 'AI agents', 'PostgreSQL', 'Next.js', 'Multi-tenancy'],
+  },
+];
+
 /** Grouped as a spec sheet, ordered by how central each group is to the work. */
 export const capabilities = [
   {
@@ -471,23 +462,54 @@ export const recognition = [
 export const languages = ['English', 'Hindi'];
 
 /**
- * The four systems worth leading with, chosen to show range rather than
- * volume: hardware in real time, enterprise identity, applied AI, and data.
- * Referenced by role id + engagement name so nothing is duplicated.
+ * The five systems worth leading with, chosen to show range rather than
+ * volume: applied AI, an AI-native product, hardware in real time, enterprise
+ * identity, and data. Pulls from both `roles` (employment) and
+ * `independentProjects` (fractional work) but resolves to one flat shape, so
+ * "Selected systems" reads as case studies regardless of source — never as an
+ * employer-plus-dates.
  */
-export const featured: { roleId: string; engagement: string; angle: string }[] = [
-  { roleId: 'tirex', engagement: 'Agentic AI NOC — Autonomous Charger Monitoring', angle: 'Autonomous ops' },
-  { roleId: 'appmesoft', engagement: 'Colegios — AI-Native School ERP', angle: 'AI-native product' },
-  { roleId: 'blink', engagement: 'Real-Time Charger Network — ~100,000 Connected Chargers', angle: 'Real time at scale' },
-  { roleId: 'vml', engagement: 'Enterprise Multi-Application Access Management Platform', angle: 'Identity' },
-  { roleId: 'blink', engagement: 'ETL Pipelines & Reporting', angle: 'Data' },
+export const featured: (
+  | { source: 'role'; roleId: string; engagement: string; angle: string }
+  | { source: 'independent'; project: string; angle: string }
+)[] = [
+  { source: 'independent', project: 'Agentic AI NOC — Autonomous Charger Monitoring', angle: 'Autonomous ops' },
+  { source: 'independent', project: 'Colegios — AI-Native School ERP', angle: 'AI-native product' },
+  {
+    source: 'role',
+    roleId: 'blink',
+    engagement: 'Real-Time Charger Network — ~100,000 Connected Chargers',
+    angle: 'Real time at scale',
+  },
+  { source: 'role', roleId: 'vml', engagement: 'Enterprise Multi-Application Access Management Platform', angle: 'Identity' },
+  { source: 'role', roleId: 'blink', engagement: 'ETL Pipelines & Reporting', angle: 'Data' },
 ];
 
-export function resolveFeatured() {
-  return featured.flatMap(({ roleId, engagement, angle }) => {
-    const role = roles.find((r) => r.id === roleId);
-    const item = role?.engagements.find((e) => e.name === engagement);
-    return role && item ? [{ role, engagement: item, angle }] : [];
+export type FeaturedItem = {
+  company: string;
+  /**
+   * "Independent build" for fractional work, absent for role-sourced items.
+   * Deliberately not a date, not even an approximate one — "Selected
+   * systems" is a case-study list, not a timeline, and it must stay that way
+   * for every entry, not just the independent ones, or the omission on the
+   * independent cards would itself stand out as a placeholder-shaped gap.
+   */
+  tag?: string;
+  engagement: Engagement;
+  angle: string;
+};
+
+export function resolveFeatured(): FeaturedItem[] {
+  return featured.flatMap((f): FeaturedItem[] => {
+    if (f.source === 'independent') {
+      const project = independentProjects.find((p) => p.name === f.project);
+      if (!project) return [];
+      return [{ company: project.client, tag: 'Independent build', engagement: project, angle: f.angle }];
+    }
+    const role = roles.find((r) => r.id === f.roleId);
+    const item = role?.engagements.find((e) => e.name === f.engagement);
+    if (!role || !item) return [];
+    return [{ company: role.company, engagement: item, angle: f.angle }];
   });
 }
 
@@ -510,7 +532,8 @@ export function yearsInTechnology(now = new Date()): number {
   return yearsSince(person.journeyStart, now);
 }
 
-export const platformCount = roles.reduce((n, r) => n + r.engagements.length, 0);
+export const platformCount =
+  roles.reduce((n, r) => n + r.engagements.length, 0) + independentProjects.length;
 export const organisationCount = roles.length;
 
 /** Client geographies evidenced by the engagements above. */

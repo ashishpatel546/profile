@@ -1,5 +1,4 @@
 import { resolveFeatured } from '@/content/profile';
-import { formatMonth } from '@/lib/format';
 import Reveal from './Reveal';
 import SectionHeading from './SectionHeading';
 import { ArrowUpRightIcon } from './icons';
@@ -29,8 +28,8 @@ export default function Systems() {
         {/* Rows bleed past the gutter so the hover fill has room to breathe;
             the matching padding puts the text back on the heading's alignment. */}
         <ol className="-mx-5 border-t border-line md:-mx-6">
-          {items.map(({ role, engagement, angle }, i) => (
-            <Reveal as="li" key={`${role.id}-${engagement.name}`} delay={i * 60}>
+          {items.map(({ company, tag, engagement, angle }, i) => (
+            <Reveal as="li" key={`${company}-${engagement.name}`} delay={i * 60}>
               <article className="group relative grid gap-6 border-b border-line px-5 py-10 transition-colors duration-300 hover:bg-canvas/70 md:grid-cols-12 md:gap-10 md:px-6 md:py-12">
                 {/* accent bar wipes down the row on hover */}
                 <span
@@ -45,11 +44,15 @@ export default function Systems() {
                   <span className="eyebrow text-accent">{angle}</span>
 
                   <p className="mt-4 font-display text-[1.2rem] font-normal text-ink">
-                    {role.company}
+                    {company}
                   </p>
-                  <p className="tabular mt-1 font-mono text-[0.75rem] text-faint">
-                    {role.periodLabel ?? `${formatMonth(role.start)} — ${formatMonth(role.end)}`}
-                  </p>
+                  {/* No dates here, ever — for anyone. This is a case-study
+                      list, not a timeline; Experience is the timeline. The
+                      independent builds carry no date on the site at all, so
+                      this section can't become a proxy for one either. */}
+                  {tag && (
+                    <p className="mt-1 font-mono text-[0.75rem] text-faint">{tag}</p>
+                  )}
                 </div>
 
                 {/* body */}

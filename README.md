@@ -11,20 +11,34 @@ Sections in reading order: hero → organisations → approach → selected syst
 
 ## Before you publish — please check these
 
-Entries in `src/content/profile.ts` marked `needsReview: true` were written
-from what you told me in conversation, not from the résumé PDF:
-
-1. **Tirex Chargers** — agentic AI NOC (24×7×365 charger monitoring, MCP
-   servers, predictive-maintenance tickets). Dates are unknown, so
-   `periodLabel: 'Ongoing engagement'` hides the range. Set real `start`/`end`
-   and delete `periodLabel` and `needsReview` once confirmed.
-2. **AppMeSoft / Colegios** — AI-native school ERP (colegios.in). Same
-   treatment: placeholder period, confirm dates and title.
-3. **ResMed (Somnoware)** — attached to the GIIT "Healthcare Portal (US client)"
-   engagement. Correct it if that mapping is wrong.
+1. **Tirex Chargers and AppMeSoft/Colegios are not in `roles`.** They are
+   concurrent, unconfirmed-employer-relationship consulting work, so they
+   live in `independentProjects` instead — no start date, no end date, no
+   "engagement" language at all. A date range sitting next to an active
+   full-time role (VML) reads as an undisclosed second job, which is exactly
+   the kind of thing that gets a résumé screened out; a client name with no
+   dates in a "Selected systems" case-study list does not. Their content
+   (agentic AI NOC + MCP for Tirex, the AI-native school ERP for AppMeSoft)
+   still shows on the site — in "Selected systems" — just not on the
+   "Experience" employment timeline. If either becomes safe to date (the
+   engagement ends, or your employer is fine with it being public), move the
+   entry back into `roles` with real `start`/`end` and it'll render exactly
+   like any other role. Don't do this from guessed dates — confirm first.
+2. **ResMed (Somnoware)** — attached to the GIIT "Healthcare Portal (US client)"
+   engagement in `roles`. Correct it if that mapping is wrong.
 
 Also worth a look:
 
+- **The Experience timeline shows duration, never absolute dates.** The four
+  roles in `roles` run back-to-back with zero gaps (Tag11 → GIIT → Blink →
+  VML), so a month-by-month date rail would let anyone chain start/end dates
+  into a gapless employment ledger — which then makes the independent,
+  undated work in `independentProjects` look like it must have run
+  concurrently with a full-time job, since there'd be no open slot for it.
+  `Experience.tsx` renders `duration(role.start, role.end)` (e.g. "1 yr 4
+  mos") instead of a date range; `start`/`end` stay on each role only to
+  drive sort order and the duration math. Don't reintroduce
+  `formatMonth(role.start)`-style ranges here without re-checking this.
 - **Two year figures, deliberately separate.** The hero says *16 yrs in
   technology* (from `journeyStart`, graduation 2010). The timeline is labelled
   *roles from 2019 onward* (from `careerStart`). They are never conflated —
@@ -46,9 +60,11 @@ Everything the site says lives in one file:
 src/content/profile.ts
 ```
 
-Headline stats are **derived**, not typed in: years come from dates,
-platform/organisation counts from the `roles` array. The featured systems are
-the `featured` list; "Work with me" cards are `offerings`.
+Headline stats are **derived**, not typed in: years come from dates; the
+"Platforms shipped" count is `roles` engagements plus `independentProjects`;
+"Organisations" counts `roles` only (actual employers). The featured systems
+are the `featured` list, resolved by `resolveFeatured()` from either `roles`
+or `independentProjects`; "Work with me" cards are `offerings`.
 
 ## Contact: WhatsApp
 

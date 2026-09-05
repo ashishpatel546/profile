@@ -22,7 +22,7 @@ function JsonLd() {
     email: `mailto:${person.email}`,
     telephone: person.phone,
     address: { '@type': 'PostalAddress', addressLocality: 'Delhi', addressCountry: 'IN' },
-    image: '/images/ashish-portrait.jpg',
+    image: '/images/ashish-desk-color.jpg',
     sameAs: links.map((l) => l.href),
     knowsAbout: [
       'Software architecture',
@@ -60,14 +60,13 @@ export default function Home() {
         <Approach />
         <Systems />
 
-        {/* Dark band: the trace needs a dark ground to read against. */}
-        <section id="experience" className="band scroll-mt-24 py-24 md:py-32">
+        <section id="experience" className="scroll-mt-24 py-24 md:py-32">
           <div className="gutter">
             <SectionHeading
               index="03"
               label="Track record"
               title="The record, told as a signal."
-              lede="Roles from 2019 onward. The copper line deflects at each one in proportion to the number of systems delivered there, and the light rides the tip as you scroll. Expand any role to see exactly what the work was."
+              lede="Roles from 2019 onward. The line deflects at each one in proportion to the number of systems delivered there, and draws itself as you scroll. Expand any role to see exactly what the work was."
             />
             <Experience />
           </div>

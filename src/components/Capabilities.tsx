@@ -12,30 +12,29 @@ export default function Capabilities() {
         lede="Architecture decisions come first because they are the expensive ones to get wrong. Everything under them is implementation detail I am fluent in."
       />
 
-      {/* Spec sheet, not a tag cloud: the group name is the key, the row is the value. */}
-      <dl className="-mx-5 border-t border-line md:-mx-6">
+      {/* Spec sheet, not a tag cloud: the group name is the key, the row is
+          the value. Rows stay a single divided list — they are one ordered
+          ranking, and cutting them into cards would break that reading. */}
+      <dl className="card divide-y divide-line overflow-hidden">
         {capabilities.map((group, i) => (
           <Reveal key={group.group} delay={i * 40}>
-            <div className="group relative grid gap-3 border-b border-line px-5 py-6 transition-colors duration-300 hover:bg-surface md:grid-cols-12 md:gap-8 md:px-6 md:py-7">
+            <div className="row-hover group relative grid gap-3 px-6 py-6 md:grid-cols-12 md:gap-8 md:px-8 md:py-7">
               <span
                 aria-hidden="true"
-                className="absolute inset-y-0 left-0 w-0.5 origin-top scale-y-0 bg-accent transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:scale-y-100"
+                className="absolute inset-y-0 left-0 w-1 origin-top scale-y-0 bg-accent transition-transform duration-500 ease-out-expo group-hover:scale-y-100"
               />
-              <dt className="md:col-span-3">
-                <span className="tabular font-mono text-[0.75rem] text-accent">
+              <dt className="flex items-center gap-3 md:col-span-3">
+                <span className="tabular inline-flex h-6 min-w-6 items-center justify-center rounded bg-accent-soft px-1 font-mono text-[0.68rem] font-medium text-accent">
                   {String(i + 1).padStart(2, '0')}
                 </span>
-                <span className="ml-3 font-display text-[1.25rem] font-normal text-ink">
+                <span className="font-display text-[1.15rem] font-semibold tracking-tight text-ink">
                   {group.group}
                 </span>
               </dt>
               <dd className="md:col-span-9">
-                <ul className="flex flex-wrap gap-x-1.5 gap-y-2">
+                <ul className="flex flex-wrap gap-1.5">
                   {group.items.map((item) => (
-                    <li
-                      key={item}
-                      className="border border-line px-2.5 py-1 font-mono text-[0.75rem] text-dim transition-colors duration-300 group-hover:border-line-strong"
-                    >
+                    <li key={item} className="chip group-hover:border-line-strong">
                       {item}
                     </li>
                   ))}

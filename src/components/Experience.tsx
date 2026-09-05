@@ -60,7 +60,7 @@ export default function Experience() {
 
       {/* Below md the SVG trace is dropped for a plain rail, so the motif still
           reads on a phone without the measuring cost. */}
-      <ol className="relative border-l border-line pl-6 md:border-l-0 md:pl-[88px]">
+      <ol className="relative border-l border-line pl-6 md:border-l-0 md:pl-22">
         {roles.map((role, i) => (
           <li
             key={role.id}
@@ -71,7 +71,7 @@ export default function Experience() {
           >
             <span
               aria-hidden="true"
-              className="absolute -left-[27px] top-11 h-1.5 w-1.5 rounded-full bg-accent md:hidden"
+              className="absolute -left-7.5 top-11 h-2 w-2 rounded-full border-2 border-accent bg-canvas md:hidden"
             />
             <Reveal>
               <article className="grid gap-6 py-10 md:grid-cols-12 md:gap-10 md:py-14">
@@ -81,14 +81,14 @@ export default function Experience() {
                     this timeline against, so an accurate employment record
                     here is a credibility plus, not a risk. */}
                 <div className="md:col-span-3">
-                  <p className="tabular font-mono text-[0.78rem] uppercase tracking-[0.1em] text-accent">
+                  <p className="tabular font-mono text-[0.78rem] uppercase tracking-widest text-accent">
                     {role.periodLabel ?? `${formatMonth(role.start)} — ${formatMonth(role.end)}`}
                   </p>
                   <p className="tabular mt-1.5 font-mono text-[0.75rem] text-faint">
                     {role.periodLabel ? role.location : `${duration(role.start, role.end)} · ${role.location}`}
                   </p>
                   {role.id === currentRole.id && (
-                    <p className="mt-3 inline-flex items-center gap-2 font-mono text-[0.72rem] uppercase tracking-[0.1em] text-signal">
+                    <p className="mt-3 inline-flex items-center gap-2 rounded-full bg-signal-soft px-2.5 py-1 font-mono text-[0.7rem] font-medium uppercase tracking-widest text-signal">
                       <span className="h-1.5 w-1.5 rounded-full bg-signal" aria-hidden="true" />
                       Current
                     </p>
@@ -97,7 +97,7 @@ export default function Experience() {
 
                 {/* the role */}
                 <div className="md:col-span-9">
-                  <h3 className="font-display text-[clamp(1.7rem,3.4vw,2.4rem)] font-normal leading-tight text-display">
+                  <h3 className="font-display text-[clamp(1.6rem,3vw,2.15rem)] font-semibold leading-tight tracking-tight text-display">
                     {role.company}
                   </h3>
                   <p className="mt-2 text-[0.975rem] text-ink">
@@ -119,19 +119,16 @@ export default function Experience() {
                     }`}
                   >
                     {role.engagements.map((e) => (
-                      <li key={e.name} className="border border-line bg-surface p-5">
-                        <h4 className="text-[0.975rem] font-medium text-ink">{e.name}</h4>
+                      <li key={e.name} className="card card-lift p-5">
+                        <h4 className="text-[0.975rem] font-semibold text-ink">{e.name}</h4>
                         <ul className="mt-3.5 flex flex-wrap gap-1.5">
                           {e.stack.slice(0, 5).map((t) => (
-                            <li
-                              key={t}
-                              className="border border-line px-2 py-0.5 font-mono text-[0.72rem] text-faint"
-                            >
+                            <li key={t} className="chip">
                               {t}
                             </li>
                           ))}
                           {e.stack.length > 5 && (
-                            <li className="px-2 py-0.5 font-mono text-[0.72rem] text-faint">
+                            <li className="inline-flex items-center px-1.5 font-mono text-[0.72rem] text-faint">
                               +{e.stack.length - 5}
                             </li>
                           )}
@@ -172,7 +169,7 @@ function Details({ role }: { role: (typeof roles)[number] }) {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-controls={panelId}
-        className="group inline-flex cursor-pointer items-center gap-2.5 border border-line px-4 py-3 font-mono text-[0.78rem] uppercase tracking-[0.1em] text-dim transition-colors duration-200 hover:border-accent hover:text-accent"
+        className="group inline-flex cursor-pointer items-center gap-2.5 rounded-md border border-line bg-surface px-4 py-2.5 font-mono text-[0.76rem] font-medium uppercase tracking-widest text-dim transition-colors duration-200 hover:border-accent hover:text-accent"
       >
         {open ? <MinusIcon className="h-3.5 w-3.5" /> : <PlusIcon className="h-3.5 w-3.5" />}
         {open ? 'Hide detail' : `Show ${count} highlights`}
@@ -189,7 +186,10 @@ function Details({ role }: { role: (typeof roles)[number] }) {
             <ul className="mt-3 space-y-2.5">
               {e.highlights.map((h) => (
                 <li key={h} className="flex gap-3 text-[0.9rem] leading-relaxed text-muted">
-                  <span aria-hidden="true" className="mt-[0.55em] h-px w-3 shrink-0 bg-accent" />
+                  <span
+                    aria-hidden="true"
+                    className="mt-[0.5em] h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
+                  />
                   <span>{h}</span>
                 </li>
               ))}

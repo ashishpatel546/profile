@@ -13,15 +13,17 @@ export default function Approach() {
         lede="Most of my work sits where software meets something stubborn — physical hardware, a legacy contract, or a model that will happily make things up. These are the patterns that repeat."
       />
 
-      <ol className="grid gap-px bg-line md:grid-cols-3">
+      <ol className="grid gap-4 md:grid-cols-3 md:gap-5">
         {thesis.map((t, i) => (
-          <Reveal as="li" key={t.label} delay={i * 90} className="bg-canvas">
-            <article className="group flex h-full flex-col gap-5 p-7 transition-colors duration-300 hover:bg-surface md:p-8">
+          <Reveal as="li" key={t.label} delay={i * 90}>
+            <article className="card card-lift group flex h-full flex-col gap-5 p-7 md:p-8">
               {/* No 01/02/03 here: these are three parallel problems, not a
                   sequence, so numbering them would be decoration. */}
-              <NodeIcon className="h-5 w-5 text-accent" />
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-md bg-accent-soft text-accent">
+                <NodeIcon className="h-5 w-5" />
+              </span>
 
-              <h3 className="font-display text-[1.55rem] font-normal leading-tight text-display">
+              <h3 className="font-display text-[1.4rem] font-semibold leading-tight tracking-tight text-display">
                 {t.label}
               </h3>
 
@@ -29,7 +31,7 @@ export default function Approach() {
 
               <span
                 aria-hidden="true"
-                className="mt-auto block h-px w-8 bg-accent transition-all duration-500 ease-[var(--ease-out-expo)] group-hover:w-full"
+                className="mt-auto block h-0.5 w-8 rounded-full bg-warm transition-all duration-500 ease-out-expo group-hover:w-16"
               />
             </article>
           </Reveal>
@@ -37,7 +39,7 @@ export default function Approach() {
       </ol>
 
       <Reveal delay={120}>
-        <div className="mt-px flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-line px-1 py-6">
+        <div className="mt-4 flex flex-wrap items-center gap-x-8 gap-y-3 rounded-lg border border-line bg-surface2 px-6 py-5 md:mt-5">
           <span className="eyebrow text-accent">Alongside the architecture</span>
           <ul className="flex flex-wrap gap-x-7 gap-y-2">
             {leadership.map((item) => (

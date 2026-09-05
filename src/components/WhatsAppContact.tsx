@@ -29,7 +29,7 @@ export default function WhatsAppContact() {
   const href = `${whatsapp.url}?text=${encodeURIComponent(message)}`;
 
   const field =
-    'w-full border border-line bg-canvas px-4 py-3 text-[0.95rem] text-ink placeholder:text-faint transition-colors duration-200 focus:border-accent focus:outline-none';
+    'w-full rounded-md border border-line bg-surface px-4 py-3 text-[0.95rem] text-ink shadow-e1 placeholder:text-faint transition-[border-color,box-shadow] duration-200 focus:border-accent focus:outline-none focus:ring-4 focus:ring-[var(--ring)]';
 
   return (
     <div className="grid gap-10 md:grid-cols-12 md:gap-8">
@@ -95,9 +95,9 @@ export default function WhatsAppContact() {
 
         <button
           type="submit"
-          className="group mt-6 inline-flex cursor-pointer items-center gap-2.5 bg-accent px-6 py-3.5 text-[0.95rem] font-medium text-on-accent transition-colors duration-200 hover:bg-accent-strong"
+          className="btn btn-primary group mt-6"
         >
-          <WhatsAppIcon className="h-[18px] w-[18px]" />
+          <WhatsAppIcon className="h-4.5 w-4.5" />
           Start the conversation
           <ArrowUpRightIcon className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </button>
@@ -105,8 +105,8 @@ export default function WhatsAppContact() {
 
       {/* ---- the QR ---- */}
       <div className="md:col-span-5">
-        <div className="flex h-full flex-col items-start gap-5 border border-line p-6 sm:flex-row sm:items-center md:flex-col md:items-start">
-          <div className="shrink-0 bg-[#ece6df] p-3">
+        <div className="card flex h-full flex-col items-start gap-5 p-6 sm:flex-row sm:items-center md:flex-col md:items-start">
+          <div className="shrink-0 rounded-md bg-white p-3 shadow-e1 ring-1 ring-line">
             {/* Static SVG, generated at author time — no QR library ships to the browser. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -114,7 +114,7 @@ export default function WhatsAppContact() {
               alt={`QR code linking to a WhatsApp chat with Ashish Kumar on ${whatsapp.display}`}
               width={132}
               height={132}
-              className="h-[132px] w-[132px]"
+              className="h-33 w-33"
             />
           </div>
 

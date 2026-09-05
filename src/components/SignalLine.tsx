@@ -18,23 +18,24 @@ export default function SignalLine({ className = '' }: { className?: string }) {
       <svg
         viewBox="0 0 1200 60"
         preserveAspectRatio="none"
-        className="h-[44px] w-full md:h-[56px]"
+        className="h-11 w-full md:h-14"
         role="presentation"
       >
         {/* resting wire */}
         <path
           d={BASELINE}
           fill="none"
-          stroke="var(--color-line-strong)"
+          stroke="var(--line-strong)"
           strokeWidth="1"
           vectorEffect="non-scaling-stroke"
         />
-        {/* the pulse travelling along it */}
+        {/* the pulse travelling along it — brass, so the live thing on the
+            page is always the warm thing */}
         <path
           d={BASELINE}
           fill="none"
-          stroke="var(--accent-strong)"
-          strokeWidth="1.5"
+          stroke="var(--warm)"
+          strokeWidth="2"
           vectorEffect="non-scaling-stroke"
           strokeLinecap="round"
           className="signal-pulse"
@@ -45,7 +46,6 @@ export default function SignalLine({ className = '' }: { className?: string }) {
         .signal-pulse {
           stroke-dasharray: 130 2600;
           animation: signal-travel 7s linear infinite;
-          filter: drop-shadow(0 0 5px color-mix(in oklab, var(--accent-strong) 55%, transparent));
         }
         @keyframes signal-travel {
           from { stroke-dashoffset: 2730; }

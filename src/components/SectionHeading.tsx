@@ -17,15 +17,18 @@ export default function SectionHeading({ index, label, title, lede }: Props) {
   return (
     <header className="mb-12 md:mb-16">
       <Reveal>
-        <div className="flex items-center gap-4 border-t border-line pt-4">
-          <span className="eyebrow tabular text-accent">{index}</span>
+        <div className="flex items-center gap-3">
+          <span className="tabular inline-flex h-7 min-w-7 items-center justify-center rounded-md bg-accent-soft px-1.5 font-mono text-[0.72rem] font-medium text-accent">
+            {index}
+          </span>
           <span className="eyebrow">{label}</span>
+          <span aria-hidden="true" className="h-px flex-1 bg-line" />
         </div>
       </Reveal>
 
-      <div className="mt-8 grid gap-8 md:grid-cols-12 md:gap-12">
+      <div className="mt-7 grid gap-8 md:grid-cols-12 md:gap-12">
         <Reveal delay={60} className="md:col-span-7">
-          <h2 className="display text-[clamp(2.1rem,5.2vw,3.6rem)]">{title}</h2>
+          <h2 className="display text-[clamp(2rem,4.6vw,3.2rem)]">{title}</h2>
         </Reveal>
         {lede && (
           <Reveal delay={120} className="md:col-span-5 md:pt-2">

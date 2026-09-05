@@ -20,19 +20,22 @@ export default function Organisations() {
   return (
     <section className="gutter pt-20 md:pt-24" aria-labelledby="orgs-heading">
       <Reveal>
-        <h2 id="orgs-heading" className="eyebrow border-t border-line pt-4">
-          Organisations and clients I have built for
-        </h2>
+        <div className="flex items-center gap-3">
+          <h2 id="orgs-heading" className="eyebrow">
+            Organisations and clients I have built for
+          </h2>
+          <span aria-hidden="true" className="h-px flex-1 bg-line" />
+        </div>
       </Reveal>
 
-      <ul className="mt-8 grid grid-cols-2 gap-px bg-line sm:grid-cols-3 lg:grid-cols-6">
+      <ul className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
         {ORGANISATIONS.map((org, i) => (
-          <Reveal as="li" key={org.name} delay={i * 45} className="bg-canvas">
-            <div className="group flex h-full flex-col justify-between gap-3 px-4 py-6 transition-colors duration-300 hover:bg-surface2">
-              <span className="font-display text-[1.15rem] leading-tight text-dim transition-colors duration-300 group-hover:text-accent">
+          <Reveal as="li" key={org.name} delay={i * 45}>
+            <div className="card card-lift group flex h-full flex-col justify-between gap-3 px-4 py-5">
+              <span className="font-display text-[1.05rem] font-semibold leading-tight tracking-tight text-dim transition-colors duration-300 group-hover:text-accent">
                 {org.name}
               </span>
-              <span className="eyebrow text-[0.68rem]">{org.note}</span>
+              <span className="eyebrow text-[0.66rem]">{org.note}</span>
             </div>
           </Reveal>
         ))}

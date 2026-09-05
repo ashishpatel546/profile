@@ -6,7 +6,7 @@ export default function Credentials() {
   return (
     <section
       id="credentials"
-      className="scroll-mt-24 border-t border-line bg-surface2 py-24 md:py-32"
+      className="band scroll-mt-24 border-t border-line py-24 md:py-32"
     >
       <div className="gutter">
         <SectionHeading
@@ -16,15 +16,15 @@ export default function Credentials() {
           lede="Formal qualifications, certifications and the places I write."
         />
 
-        <div className="grid gap-px bg-line lg:grid-cols-3">
+        <div className="grid gap-4 lg:grid-cols-3 lg:gap-5">
           {/* education */}
-          <Reveal className="bg-canvas">
-            <div className="h-full p-7 md:p-8">
+          <Reveal>
+            <div className="card card-lift h-full p-7 md:p-8">
               <h3 className="eyebrow text-accent">Education</h3>
               <ul className="mt-6 space-y-6">
                 {education.map((e) => (
                   <li key={e.qualification}>
-                    <p className="font-display text-[1.2rem] font-normal leading-snug text-ink">
+                    <p className="font-display text-[1.1rem] font-semibold leading-snug tracking-tight text-ink">
                       {e.qualification}
                     </p>
                     <p className="mt-1.5 text-[0.9rem] leading-relaxed text-muted">
@@ -44,8 +44,8 @@ export default function Credentials() {
           </Reveal>
 
           {/* certifications */}
-          <Reveal delay={70} className="bg-canvas">
-            <div className="h-full p-7 md:p-8">
+          <Reveal delay={70}>
+            <div className="card card-lift h-full p-7 md:p-8">
               <h3 className="eyebrow text-accent">Certifications</h3>
               <ul className="mt-6 space-y-5">
                 {certifications.map((c) => (
@@ -60,13 +60,13 @@ export default function Credentials() {
           </Reveal>
 
           {/* recognition */}
-          <Reveal delay={140} className="bg-canvas">
-            <div className="h-full p-7 md:p-8">
+          <Reveal delay={140}>
+            <div className="card card-lift h-full p-7 md:p-8">
               <h3 className="eyebrow text-accent">Recognition</h3>
               <ul className="mt-6 space-y-6">
                 {recognition.map((r) => (
                   <li key={r.title}>
-                    <p className="font-display text-[1.2rem] font-normal leading-snug text-display">
+                    <p className="font-display text-[1.1rem] font-semibold leading-snug tracking-tight text-display">
                       {r.title}
                     </p>
                     <p className="mt-1.5 text-[0.9rem] leading-relaxed text-muted">{r.body}</p>

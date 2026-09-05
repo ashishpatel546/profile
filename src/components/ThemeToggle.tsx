@@ -6,7 +6,7 @@ type Theme = 'light' | 'dark';
 
 /** Must stay in sync with the pre-paint script in layout.tsx. */
 export const THEME_KEY = 'ak-theme';
-const DEFAULT_THEME: Theme = 'dark';
+const DEFAULT_THEME: Theme = 'light';
 
 /*
  * The <html data-theme> attribute is the single source of truth — the pre-paint
@@ -23,7 +23,7 @@ function subscribe(cb: () => void) {
 }
 
 function getSnapshot(): Theme {
-  return document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+  return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
 }
 
 function getServerSnapshot(): Theme {
@@ -64,7 +64,7 @@ export default function ThemeToggle() {
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
       aria-label={label}
       title={label}
-      className="inline-flex h-11 w-11 cursor-pointer items-center justify-center border border-line text-muted transition-colors duration-200 hover:border-accent hover:text-accent"
+      className="inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-md border border-line bg-surface text-muted transition-colors duration-200 hover:border-accent hover:text-accent"
     >
       {isDark ? (
         <svg {...iconProps}>

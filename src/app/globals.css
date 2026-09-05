@@ -1,111 +1,136 @@
 @import "tailwindcss";
 
 /* ============================================================================
-   Paper and ink.
+   Blueprint & brass.
 
-   The page is warm paper. Three sections — the hero, the career timeline and
-   the contact footer — sit on deep ink bands, because that is where the copper
-   trace lives and it needs a dark ground to read against. That alternation is
-   the page's rhythm, not decoration.
+   Two colours carry the page, and both come from something real. The blue is
+   cyanotype — the ink an engineering drawing is actually printed in, which is
+   what this page is. The brass is lifted straight out of the portrait: the
+   shirt he is wearing in it. Blue and amber sit opposite each other on the
+   wheel, so the pair is warm and confident rather than clinical, and the
+   photograph belongs to the palette instead of fighting it.
+
+   The ground is tinted, not white. White is reserved for cards, which is what
+   makes them read as objects sitting on a surface rather than as regions of
+   an empty page.
+
+   Green is not a third accent. It means one thing only — live, online,
+   current — which is literal in a charging network, and it appears twice.
 
    Everything below is semantic: components never name a raw colour, they name
-   a role (`canvas`, `ink`, `muted`, `accent`). Swapping the theme or the band
+   a role (`canvas`, `ink`, `muted`, `accent`, `warm`). Swapping the theme
    just re-points those roles.
    ========================================================================== */
 
-/* ---- light (default): warm paper ---------------------------------------- */
+/* ---- light (default) ---------------------------------------------------- */
 :root {
   /* Theme-independent. Declared here as well as in @theme because `@theme
      inline` does not emit custom properties, and both CSS and inline styles
-     reference this by name. */
+     reference these by name. */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 
-  --canvas: #f7f3ed;
-  --surface: #fffdfa;
-  --surface-2: #efe8de;
+  --canvas: #ebf1f8;
+  --surface: #ffffff;
+  --surface-2: #dde8f3;
 
-  --text: #17191c;
-  --text-dim: #34383d;
-  --text-muted: #4e545a;
-  --text-faint: #5e646b;
+  /* Measured against --canvas: 16.5 / 13.3 / 8.9 / 6.2 : 1. The ground is
+     light, so the ink has to be genuinely dark — a mid-grey ramp that merely
+     passes AA still reads washed out on a tinted page. Even the metadata
+     tier sits at 6:1 here, well clear of the 4.5 minimum. */
+  --text: #06131f;
+  --text-dim: #142838;
+  --text-muted: #2c4459;
+  --text-faint: #405a72;
 
-  --line: #ded5c9;
-  --line-strong: #c0b5a5;
+  --line: #c6d6e6;
+  --line-strong: #9db6cf;
 
-  /* #a85f26 measured 4.39:1 for 11px eyebrows on paper — just under AA. */
-  --accent: #9e581f;
-  --accent-strong: #83471a;
-  --display: #14161a;
-  --on-accent: #fff8f0;
+  --accent: #08507a;
+  --accent-strong: #06405f;
+  --accent-soft: #dce9f5;
+  --display: #06131f;
+  --on-accent: #ffffff;
 
-  --signal: #1c7a51;
-  /* Kept close to surface-2: on paper the dots must sit *behind* body text,
-     never darker than it. */
-  --dot: #ddd3c6;
+  /* Brass. `--warm` is the graphic value (fills, rules, the live head);
+     `--warm-ink` is the darker one that carries text — an amber bright
+     enough to look like brass never has the contrast to be read. */
+  --warm: #d98a11;
+  --warm-ink: #7d4d04;
+  --warm-soft: #fbeeda;
 
-  --grain-opacity: 0.03;
-  --grain-blend: multiply;
-  --glow-opacity: 0.1;
+  --signal: #096b51;
+  --signal-soft: #d9efe7;
+
+  /* Blueprint grid: two weights, fine and major. Kept near the ground colour
+     so the grid sits behind copy and never competes with it. */
+  --grid-fine: #dbe5f0;
+  --grid-major: #c6d6e7;
+  --glow-opacity: 0.55;
+
+  /* Tinted with the ink hue rather than pure black — a neutral-black shadow
+     on a cool ground reads as dirt. */
+  --shadow-1: 0 1px 2px rgba(11, 27, 43, 0.05), 0 1px 3px rgba(11, 27, 43, 0.04);
+  --shadow-2: 0 2px 4px rgba(11, 27, 43, 0.05), 0 8px 20px -6px rgba(11, 27, 43, 0.12);
+  --shadow-3: 0 4px 8px rgba(11, 27, 43, 0.06), 0 18px 40px -12px rgba(11, 27, 43, 0.18);
+  --ring: rgba(11, 92, 138, 0.18);
 }
 
-/* ---- dark: lifted ink, not a void --------------------------------------- */
+/* ---- dark: deep navy, not a void ---------------------------------------- */
 :root[data-theme='dark'] {
-  --canvas: #101317;
-  --surface: #171b20;
-  --surface-2: #1d232a;
+  --canvas: #0b1725;
+  --surface: #132234;
+  --surface-2: #1a2c41;
 
-  --text: #ece6df;
-  --text-dim: #b9b3ac;
-  --text-muted: #99a0a7;
-  --text-faint: #7e858c;
+  --text: #e8eef6;
+  --text-dim: #c2d0de;
+  --text-muted: #9cb0c4;
+  --text-faint: #8299af;
 
-  --line: #262e35;
-  --line-strong: #39434c;
+  --line: #23364c;
+  --line-strong: #354c66;
 
-  --accent: #d9925a;
-  --accent-strong: #e7a86b;
-  --display: #f5dcc0;
-  --on-accent: #14100c;
+  --accent: #5cb3e2;
+  --accent-strong: #86cbf0;
+  --accent-soft: #152c42;
+  --display: #f0f6fb;
+  --on-accent: #04121c;
 
-  --signal: #6fcf9f;
-  --dot: #4e5a65;
+  --warm: #e8a93c;
+  --warm-ink: #f0bf6b;
+  --warm-soft: #2c2213;
 
-  --grain-opacity: 0.035;
-  --grain-blend: overlay;
-  --glow-opacity: 0.16;
+  --signal: #3fcfa4;
+  --signal-soft: #102b26;
+
+  --grid-fine: #16263a;
+  --grid-major: #1e3450;
+  --glow-opacity: 0.6;
+
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-2: 0 2px 6px rgba(0, 0, 0, 0.35), 0 12px 28px -8px rgba(0, 0, 0, 0.5);
+  --shadow-3: 0 4px 10px rgba(0, 0, 0, 0.4), 0 24px 48px -12px rgba(0, 0, 0, 0.6);
+  --ring: rgba(92, 179, 226, 0.24);
 }
 
 /*
- * A band is always dark, in either theme — that is the whole point of it.
- * In dark mode it sits a step above the canvas so the rhythm still reads.
+ * An alternating section. It used to be forced dark in both themes; it is now
+ * simply a recessed step of whichever theme is running, so the page reads as
+ * one continuous document instead of three lit rooms and two dark ones.
  */
 .band {
-  --canvas: #16191d;
-  --surface: #1e2228;
-  --surface-2: #252b32;
-
-  --text: #ece6df;
-  --text-dim: #b9b3ac;
-  --text-muted: #99a0a7;
-  --text-faint: #7e858c;
-
-  --line: #2b333a;
-  --line-strong: #3d4750;
-
-  --accent: #d9925a;
-  --accent-strong: #e7a86b;
-  --display: #f5dcc0;
-  --on-accent: #14100c;
-
-  --signal: #6fcf9f;
-  --dot: #56626d;
-
-  --grain-opacity: 0.035;
-  --grain-blend: overlay;
-  --glow-opacity: 0.18;
-
+  --canvas: var(--surface-2);
   background-color: var(--canvas);
   color: var(--text);
+}
+
+/* On a recessed band, cards step *up* to the page ground rather than to white,
+   which keeps the elevation order honest. */
+.band {
+  --surface: #ffffff;
+}
+:root[data-theme='dark'] .band {
+  --surface: #16283c;
 }
 
 @theme inline {
@@ -123,13 +148,28 @@
 
   --color-accent: var(--accent);
   --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
   --color-display: var(--display);
   --color-on-accent: var(--on-accent);
   --color-signal: var(--signal);
+  --color-signal-soft: var(--signal-soft);
+  --color-warm: var(--warm);
+  --color-warm-ink: var(--warm-ink);
+  --color-warm-soft: var(--warm-soft);
 
-  --font-display: var(--font-newsreader), ui-serif, Georgia, serif;
-  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, "SF Mono", monospace;
+
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+
+  --shadow-e1: var(--shadow-1);
+  --shadow-e2: var(--shadow-2);
+  --shadow-e3: var(--shadow-3);
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -152,7 +192,7 @@
     background-color: var(--canvas);
     color: var(--text);
     font-family: var(--font-sans);
-    font-feature-settings: "kern", "liga";
+    font-feature-settings: "kern", "liga", "cv05";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
@@ -171,12 +211,12 @@
   :focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 3px;
-    border-radius: 2px;
+    border-radius: var(--radius-xs);
   }
 
   ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
   }
   ::-webkit-scrollbar-track {
     background: var(--surface-2);
@@ -184,7 +224,7 @@
   ::-webkit-scrollbar-thumb {
     background: var(--line-strong);
     border-radius: 999px;
-    border: 2px solid var(--surface-2);
+    border: 3px solid var(--surface-2);
   }
   ::-webkit-scrollbar-thumb:hover {
     background: var(--accent);
@@ -192,29 +232,30 @@
 }
 
 @layer components {
-  /* Mono eyebrow for section labels and metadata keys. Sized up from 11px —
-     small caps tracking needs the extra to stay legible. */
+  /* Mono eyebrow for section labels and metadata keys. */
   .eyebrow {
     font-family: var(--font-mono);
     font-size: 0.75rem;
-    letter-spacing: 0.14em;
+    font-weight: 500;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--text-faint);
   }
 
+  /* Display face is a grotesque, so it carries weight rather than contrast:
+     600 with tight tracking, never a light serif. */
   .display {
     font-family: var(--font-display);
-    font-weight: 300;
-    line-height: 0.98;
-    letter-spacing: -0.022em;
+    font-weight: 600;
+    line-height: 1.02;
+    letter-spacing: -0.032em;
     color: var(--display);
   }
 
   .prose-lead {
-    font-family: var(--font-display);
-    font-weight: 300;
-    font-size: clamp(1.15rem, 1.9vw, 1.5rem);
-    line-height: 1.55;
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+    font-weight: 400;
+    line-height: 1.6;
     color: var(--text-dim);
   }
 
@@ -235,36 +276,106 @@
     }
   }
 
-  /* Signature: a copper signal line drawn progressively on scroll. Path length
-     is measured at runtime and written to --trace-len. */
+  /* The one surface primitive. Everything that used to be a cell in a
+     `gap-px` hairline table is now one of these. */
+  .card {
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-1);
+    transition:
+      box-shadow 320ms var(--ease-out-quart),
+      border-color 320ms var(--ease-out-quart),
+      transform 320ms var(--ease-out-quart);
+  }
+
+  .card-lift:hover {
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow-2);
+    transform: translateY(-3px);
+  }
+
+  /* Row-shaped surfaces (the systems list, the capability spec sheet) lift by
+     colour rather than by moving — a 12-row list that jumps on hover is
+     noise. */
+  .row-hover {
+    transition: background-color 280ms var(--ease-out-quart);
+  }
+  .row-hover:hover {
+    background-color: var(--surface-2);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.2rem 0.65rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    background-color: var(--canvas);
+    transition: border-color 240ms var(--ease-out-quart), color 240ms var(--ease-out-quart);
+  }
+
+  .btn {
+    display: inline-flex;
+    cursor: pointer;
+    align-items: center;
+    gap: 0.625rem;
+    border-radius: var(--radius-md);
+    padding: 0.875rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition:
+      background-color 200ms var(--ease-out-quart),
+      border-color 200ms var(--ease-out-quart),
+      color 200ms var(--ease-out-quart),
+      box-shadow 200ms var(--ease-out-quart);
+  }
+
+  .btn-primary {
+    background-color: var(--accent);
+    color: var(--on-accent);
+    box-shadow: var(--shadow-1);
+  }
+  .btn-primary:hover {
+    background-color: var(--accent-strong);
+    box-shadow: var(--shadow-2);
+  }
+
+  .btn-ghost {
+    border: 1px solid var(--line-strong);
+    color: var(--text);
+    background-color: var(--surface);
+  }
+  .btn-ghost:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: var(--shadow-1);
+  }
+
+  /* Signature: a cyanotype line drawn progressively on scroll. Path length is
+     measured at runtime and written to --trace-len. */
   .trace-path {
     stroke-dasharray: var(--trace-len);
     stroke-dashoffset: calc(var(--trace-len) * (1 - var(--trace-progress, 0)));
     transition: stroke-dashoffset 120ms linear;
   }
 
-  /* The head that rides the tip of the trace — breathes so the wire reads
-     as live rather than merely drawn. */
+  /* The head that rides the tip of the trace — breathes so the wire reads as
+     live rather than merely drawn. */
   .trace-head {
     animation: trace-breathe 2.4s ease-in-out infinite;
   }
   @keyframes trace-breathe {
     0%,
     100% {
-      opacity: 0.75;
+      opacity: 0.72;
     }
     50% {
       opacity: 1;
     }
-  }
-
-  .grain {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: var(--grain-opacity);
-    mix-blend-mode: var(--grain-blend);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 }
 
@@ -282,6 +393,9 @@
   .trace-path {
     stroke-dashoffset: 0 !important;
   }
+  .card-lift:hover {
+    transform: none;
+  }
 }
 
 @media print {
@@ -291,5 +405,9 @@
   }
   .no-print {
     display: none !important;
+  }
+  .card {
+    box-shadow: none;
+    border-color: #ccc;
   }
 }

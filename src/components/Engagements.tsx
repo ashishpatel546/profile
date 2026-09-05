@@ -13,23 +13,23 @@ export default function Engagements() {
         lede="Four ways companies bring me in. Each one lists what it is actually for and where I have done it before — so you can judge the fit before you spend a call on it."
       />
 
-      <ol className="grid gap-px bg-line md:grid-cols-2">
+      <ol className="grid gap-4 md:grid-cols-2 md:gap-5">
         {offerings.map((o, i) => (
-          <Reveal as="li" key={o.title} delay={i * 70} className="bg-canvas">
-            <article className="group flex h-full flex-col gap-4 p-7 transition-colors duration-300 hover:bg-surface md:p-8">
-              <h3 className="font-display text-[1.6rem] font-normal leading-tight text-display">
+          <Reveal as="li" key={o.title} delay={i * 70}>
+            <article className="card card-lift group flex h-full flex-col gap-4 p-7 md:p-8">
+              <h3 className="font-display text-[1.45rem] font-semibold leading-tight tracking-tight text-display">
                 {o.title}
               </h3>
 
               {/* The line a reader should recognise themselves in. */}
-              <p className="border-l-2 border-accent pl-4 text-[1.02rem] font-medium leading-snug text-ink">
+              <p className="rounded-md border-l-[3px] border-accent bg-accent-soft px-4 py-3 text-[1rem] font-medium leading-snug text-ink">
                 {o.outcome}
               </p>
 
               <p className="text-[0.95rem] leading-relaxed text-muted">{o.body}</p>
 
               <p className="mt-auto border-t border-line pt-4 text-[0.875rem] leading-relaxed text-faint">
-                <span className="eyebrow mr-2 text-accent">Done before</span>
+                <span className="eyebrow mr-2 text-warm-ink">Done before</span>
                 {o.proof}
               </p>
             </article>
@@ -38,9 +38,9 @@ export default function Engagements() {
       </ol>
 
       <Reveal delay={120}>
-        <div className="mt-10 flex flex-col items-start gap-5 border border-line p-7 sm:flex-row sm:items-center sm:justify-between md:p-8">
+        <div className="card mt-5 flex flex-col items-start gap-5 bg-surface2 p-7 sm:flex-row sm:items-center sm:justify-between md:p-8">
           <div>
-            <p className="font-display text-[1.5rem] font-normal leading-tight text-display">
+            <p className="font-display text-[1.4rem] font-semibold leading-tight tracking-tight text-display">
               Not sure which one you need?
             </p>
             <p className="mt-2 max-w-[52ch] text-[0.95rem] leading-relaxed text-muted">
@@ -53,9 +53,9 @@ export default function Engagements() {
             href={whatsapp.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex shrink-0 cursor-pointer items-center gap-2.5 bg-accent px-6 py-3.5 text-[0.95rem] font-medium text-on-accent transition-colors duration-200 hover:bg-accent-strong"
+            className="btn btn-primary group shrink-0"
           >
-            <WhatsAppIcon className="h-[18px] w-[18px]" />
+            <WhatsAppIcon className="h-4.5 w-4.5" />
             Ask on WhatsApp
             <ArrowUpRightIcon className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>

@@ -7,7 +7,7 @@ import {
   yearsInTechnology,
 } from '@/content/profile';
 import { asset } from '@/lib/asset';
-import DotField from './DotField';
+import BlueprintGrid from './BlueprintGrid';
 import { ArrowDownIcon, ArrowUpRightIcon } from './icons';
 import Reveal from './Reveal';
 import SignalLine from './SignalLine';
@@ -31,40 +31,38 @@ export default function Hero() {
   ];
 
   return (
-    /* Deliberately NOT a `band`: the hero follows the chosen theme, so toggling
-       it gives visible feedback on the very first screen. Copper on paper reads
-       fine for the horizontal wire; the vertical trace further down keeps its
-       dark band, where a reader has already seen the theme change. */
-    <section className="relative overflow-hidden pt-32 pb-16 md:pt-40 md:pb-20" id="top">
-      <DotField origin="82% 4%" />
-      <div className="grain" aria-hidden="true" />
+    <section className="relative overflow-hidden pb-16 pt-28 md:pb-20 md:pt-32" id="top">
+      <BlueprintGrid origin="80% 8%" counterOrigin="2% 96%" />
 
       <div className="gutter relative">
         <div className="grid items-end gap-12 md:grid-cols-12 md:gap-10">
           {/* ---- statement ---- */}
           <div className="md:col-span-7">
             <Reveal>
-              <p className="eyebrow text-accent">
-                {person.positioning} <span className="text-faint">/</span> {person.discipline}
+              <p className="inline-flex items-start gap-2.5 rounded-full border border-line bg-surface px-3.5 py-1.5 shadow-e1">
+                <span
+                  aria-hidden="true"
+                  className="mt-[0.5em] h-1.5 w-1.5 shrink-0 rounded-full bg-signal"
+                />
+                <span className="eyebrow text-dim">
+                  {person.positioning} <span className="text-faint">/</span> {person.discipline}
+                </span>
               </p>
             </Reveal>
 
             <Reveal delay={80}>
-              <h1 className="display mt-6 text-[clamp(2.6rem,7.4vw,5.25rem)]">
+              <h1 className="display mt-7 text-[clamp(2.5rem,6.8vw,4.75rem)]">
                 {person.headline}
               </h1>
             </Reveal>
 
             <Reveal delay={160}>
-              <p className="prose-lead mt-8 max-w-[54ch]">{person.standfirst}</p>
+              <p className="prose-lead mt-7 max-w-[56ch]">{person.standfirst}</p>
             </Reveal>
 
             <Reveal delay={220}>
               <div className="mt-10 flex flex-wrap items-center gap-3">
-                <a
-                  href="#work"
-                  className="group inline-flex cursor-pointer items-center gap-2.5 bg-accent px-6 py-3.5 text-[0.95rem] font-medium text-on-accent transition-colors duration-200 hover:bg-accent-strong"
-                >
+                <a href="#work" className="btn btn-primary group">
                   See the systems
                   <ArrowDownIcon className="h-4 w-4 transition-transform duration-200 group-hover:translate-y-0.5" />
                 </a>
@@ -72,7 +70,7 @@ export default function Hero() {
                   href={person.resumePath}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex cursor-pointer items-center gap-2.5 border border-line-strong px-6 py-3.5 text-[0.95rem] font-medium text-ink transition-colors duration-200 hover:border-accent hover:text-accent"
+                  className="btn btn-ghost group"
                 >
                   Résumé (PDF)
                   <ArrowUpRightIcon className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -84,52 +82,36 @@ export default function Hero() {
           {/* ---- portrait ---- */}
           <div className="md:col-span-5">
             <Reveal delay={140}>
-              <figure>
-                {/* Brackets hang off this box, not the figure, so they stay
-                    registered to the image rather than the caption. */}
-                <div className="relative">
-                  <div className="relative aspect-4/5 w-full overflow-hidden bg-surface">
-                    <Image
-                      src={asset('/images/ashish-portrait.jpg')}
-                      alt={`${person.name}, ${person.positioning}`}
-                      fill
-                      priority
-                      sizes="(max-width: 768px) 92vw, 38vw"
-                      className="object-cover object-top"
-                    />
-                    {/* Fade the photo's bright office background into the band. */}
-                    <div
-                      aria-hidden="true"
-                      className="absolute inset-0"
-                      style={{
-                        background:
-                          'linear-gradient(to bottom, transparent 32%, color-mix(in oklab, var(--canvas) 78%, transparent) 82%, var(--canvas) 100%)',
-                      }}
-                    />
-                    <div
-                      aria-hidden="true"
-                      className="absolute inset-0 mix-blend-soft-light"
-                      style={{
-                        background:
-                          'linear-gradient(140deg, color-mix(in oklab, var(--accent) 45%, transparent), transparent 55%)',
-                      }}
-                    />
-                  </div>
-
-                  {/* Registration marks — an architect's frame that doesn't box the photo in. */}
-                  <span
-                    aria-hidden="true"
-                    className="absolute -left-3 -top-3 h-12 w-12 border-l border-t border-accent/70"
+              <figure className="card overflow-hidden shadow-e2">
+                {/* The colour frame, not the sepia one. The brass in the
+                    shirt is where this page's warm accent comes from, so the
+                    photograph has to be in the palette, not beside it. */}
+                <div className="relative aspect-4/5 w-full overflow-hidden bg-surface2">
+                  <Image
+                    src={asset('/images/ashish-desk-color.jpg')}
+                    alt={`${person.name}, ${person.positioning}`}
+                    fill
+                    priority
+                    sizes="(max-width: 768px) 92vw, 38vw"
+                    className="scale-[1.16] object-cover object-[57%_26%]"
                   />
-                  <span
+                  {/* Settles the photo's bright office background into the
+                      card so the caption bar below reads as one object. */}
+                  <div
                     aria-hidden="true"
-                    className="absolute -bottom-3 -right-3 h-12 w-12 border-b border-r border-accent/70"
+                    className="absolute inset-x-0 bottom-0 h-1/3"
+                    style={{
+                      background:
+                        'linear-gradient(to bottom, transparent, color-mix(in oklab, var(--surface) 80%, transparent))',
+                    }}
                   />
                 </div>
 
-                <figcaption className="eyebrow mt-7 flex items-center justify-between">
-                  <span>{person.name}</span>
-                  <span className="text-accent">{person.location}</span>
+                <figcaption className="flex items-center justify-between gap-4 border-t border-line px-5 py-4">
+                  <span className="font-display text-[1.05rem] font-semibold text-ink">
+                    {person.name}
+                  </span>
+                  <span className="eyebrow text-[0.7rem]">{person.location}</span>
                 </figcaption>
               </figure>
             </Reveal>
@@ -143,13 +125,13 @@ export default function Hero() {
 
         {/* ---- derived numbers ---- */}
         <Reveal delay={320}>
-          <dl className="grid grid-cols-2 gap-px border-t border-line bg-line md:grid-cols-4">
+          <dl className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
             {stats.map((s) => (
-              <div key={s.label} className="bg-canvas px-1 py-6 md:px-2">
-                <dt className="eyebrow">{s.label}</dt>
-                <dd className="tabular mt-2 font-display text-[2.5rem] font-light leading-none text-ink">
+              <div key={s.label} className="card card-lift px-5 py-6">
+                <dt className="eyebrow text-[0.7rem]">{s.label}</dt>
+                <dd className="tabular mt-2.5 font-display text-[2.25rem] font-semibold leading-none tracking-tight text-ink">
                   {s.value}
-                  {s.unit && <span className="ml-1 text-lg text-accent">{s.unit}</span>}
+                  {s.unit && <span className="ml-1 text-lg text-warm-ink">{s.unit}</span>}
                 </dd>
               </div>
             ))}

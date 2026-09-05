@@ -15,11 +15,14 @@ const BASE_X = 40;
 /**
  * The trace.
  *
- * A single copper line running the height of the career, deflecting at each
+ * A single cyanotype line running the height of the career, deflecting at each
  * role by an amount proportional to the number of systems built there — so
  * the shape of the line is the shape of the record, not decoration. It draws
- * itself as the section scrolls, with a glowing head riding the tip.
+ * itself as the section scrolls, with a head riding the tip.
  * With reduced motion it is simply already drawn, and the head is hidden.
+ *
+ * It reads on the light ground as a plotted drawing rather than a lit wire,
+ * which is why the glow filter it used to carry is gone.
  */
 export default function Trace({ nodes, height }: { nodes: TraceNode[]; height: number }) {
   const pathRef = useRef<SVGPathElement>(null);
@@ -101,8 +104,8 @@ export default function Trace({ nodes, height }: { nodes: TraceNode[]; height: n
       aria-hidden="true"
       role="presentation"
     >
-      {/* unlit wire */}
-      <path d={d} fill="none" stroke="var(--line-strong)" strokeWidth="1" />
+      {/* undrawn wire */}
+      <path d={d} fill="none" stroke="var(--line-strong)" strokeWidth="1" strokeDasharray="3 4" />
 
       {/* the live trace */}
       <path
@@ -110,24 +113,25 @@ export default function Trace({ nodes, height }: { nodes: TraceNode[]; height: n
         d={d}
         fill="none"
         stroke="var(--accent)"
-        strokeWidth="1.5"
+        strokeWidth="2"
         strokeLinecap="round"
         className="trace-path"
         style={
           {
             '--trace-len': len,
             '--trace-progress': progress,
-            filter: 'drop-shadow(0 0 6px color-mix(in oklab, var(--accent) 45%, transparent))',
           } as React.CSSProperties
         }
       />
 
-      {/* the head — the light running up and down the wire */}
+      {/* The head — the light running up and down the wire. Brass, against
+          the cyanotype line: the drawing is cool, the live point on it is
+          warm. */}
       {showHead && (
         <g transform={`translate(${tip.x} ${tip.y})`} className="trace-head">
-          <circle r="10" fill="var(--accent)" opacity="0.18" />
-          <circle r="4.5" fill="var(--accent)" opacity="0.4" />
-          <circle r="2.2" fill="var(--accent-strong)" />
+          <circle r="10" fill="var(--warm)" opacity="0.18" />
+          <circle r="4.5" fill="var(--warm)" opacity="0.4" />
+          <circle r="2.6" fill="var(--warm)" />
         </g>
       )}
 
@@ -137,19 +141,19 @@ export default function Trace({ nodes, height }: { nodes: TraceNode[]; height: n
         return (
           <g key={n.label} transform={`translate(${BASE_X + n.amp} ${n.y})`}>
             <circle
-              r={reachedNode ? 4.5 : 3}
+              r={reachedNode ? 5 : 3.5}
               fill="var(--canvas)"
-              stroke={reachedNode ? 'var(--accent-strong)' : 'var(--line-strong)'}
-              strokeWidth="1.5"
+              stroke={reachedNode ? 'var(--accent)' : 'var(--line-strong)'}
+              strokeWidth="2"
               style={{ transition: 'all 320ms var(--ease-out-expo)' }}
             />
             {reachedNode && (
               <circle
-                r="9"
+                r="10"
                 fill="none"
                 stroke="var(--accent)"
                 strokeWidth="1"
-                opacity="0.28"
+                opacity="0.25"
                 style={{ transition: 'all 320ms var(--ease-out-expo)' }}
               />
             )}
